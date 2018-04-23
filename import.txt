@@ -1,0 +1,123 @@
+create schema bb;
+
+create table bb.person
+(
+playerID varchar(25) not null primary key,
+nameFirst varchar(30),
+NameLast varchar(30),
+bats char(1),
+throws char(1)
+)
+
+
+call "SYSCS_UTIL"."SYSCS_IMPORT_DATA"
+( 'BB',
+'PERSON', 
+NULL,
+'1,14,15,19,20',
+'/baseball/People.csv', 
+NULL, --IN columnDelimiter CHAR(1)
+NULL, --IN characterDelimiter  CHAR(1), 
+NULL, --codeset
+1 --replace SMALLINT
+)
+
+
+create table bb.team
+(year_id int,
+lgID varchar(5),
+teamID varchar(5),
+franchID varchar(5),
+divID varchar(5),
+name varchar (100),
+primary key (year_id, lgID, teamID)
+)
+
+call "SYSCS_UTIL"."SYSCS_IMPORT_DATA"
+( 'BB',
+'TEAM', 
+NULL,
+'1,2,3,4,5,41',
+'/baseball/Teams.csv', 
+NULL, --IN columnDelimiter CHAR(1)
+NULL, --IN characterDelimiter  CHAR(1), 
+NULL, --codeset
+1 --replace SMALLINT
+)
+
+create table bb.appearance(
+yearID int not null,
+teamID varchar(25) not null,
+lgID varchar(25),
+playerID varchar(25) not null,
+G_all int,
+GS int,
+G_batting int,
+G_defense int,
+G_p int,
+G_c int,
+G_1b int,
+G_2b int,
+G_3b int,
+G_ss int,
+G_lf int,
+G_cf int,
+G_rf int,
+G_of int,
+G_dh int,
+G_ph int,
+G_pr int,
+primary key (yearID, teamID, lgID, playerID)
+)
+
+call "SYSCS_UTIL"."SYSCS_IMPORT_DATA"
+( 'BB',
+'APPEARANCEE, 
+NULL,
+NULL,
+'/baseball/Appearances.csv', 
+NULL, --IN columnDelimiter CHAR(1)
+NULL, --IN characterDelimiter  CHAR(1), 
+NULL, --codeset
+1 --replace SMALLINT
+)
+
+
+create table bb.batting
+(playerID varchar(25) not null,
+yearID int not null, 
+stint int not null,
+teamID varchar(25) not null,
+lgID varchar(25),
+G int,
+AB int,
+R int,
+H int,
+DBL int,
+TRPL int,
+HR int,
+RBI int,
+SB int,
+CS int,
+BB int,
+SO int,
+IBB int,
+HBP int,
+SH int,
+SF int,
+GIDP int,
+primary key (playerID,yearID,stint)
+)
+
+
+call "SYSCS_UTIL"."SYSCS_IMPORT_DATA"
+( 'BB',
+'BATTING, 
+NULL,
+NULL,
+'/baseball/Batting.csv', 
+NULL, --IN columnDelimiter CHAR(1)
+NULL, --IN characterDelimiter  CHAR(1), 
+NULL, --codeset
+1 --replace SMALLINT
+)
