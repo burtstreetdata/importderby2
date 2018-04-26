@@ -1,0 +1,16 @@
+select yearid, count(*)
+from bb.APPEARANCE
+group by YEARID
+
+select a.YEARID, a.TEAMID, count( playerid) as bigteam
+from bb.APPEARANCE a
+ group by a.YEARID, a.TEAMID
+ order by yearid desc
+
+
+select max(p.NAMEFIRST), max(p.NAMELAST), min(a.yearid), max(a.YEARid), count(*)
+from bb.APPEARANCE a
+	join bb.PERSON p
+	on a.PLAYERID = p.PLAYERID
+group by a.PLAYERID
+order by count(*) desc
