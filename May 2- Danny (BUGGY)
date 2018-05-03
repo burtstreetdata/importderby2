@@ -1,0 +1,51 @@
+--BUGGY (DO NOT USE)--
+--Contains following message:
+Error: Column 'HITTERS.HITS' is either not in any table in the FROM list or appears within a join specification and is outside the scope of the join specification or appears in a HAVING clause and is not in the GROUP BY list. If this is a CREATE or ALTER TABLE  statement then 'HITTERS.HITS' is not a column in the target table.
+SQLState:  42X04
+ErrorCode: 30000--
+
+
+select * 
+from bb.batting b
+where b.yearid in (2014, 2015)
+and b.H > 20
+
+select * 
+from bb.batting b
+where (b.yearid =2014 and b.H > 20)
+or (b.YEARID = 2015 and b.H > 20)
+
+
+select count(*) 
+from bb.batting b
+where (b.yearid =2014 and b.H > 20)
+or (b.YEARID = 2015 and b.H > 20)
+
+
+select sum(b.H), b.PLAYERID
+from bb.batting b
+where b.yearid in (2014, 2015)
+group by b.PLAYERID
+having sum(b.H) > 20
+
+select p.namefirst, p.namelast, hitters.hits
+from bb.PERSON p
+join (
+	select sum(b.H) as hits, b.PLAYERID
+	from bb.batting b
+	where b.yearid=2014
+	group by b.PLAYERID
+	having sum(b.H) > 20 
+	) hitters2014
+	on p.PLAYERID = hitters.playerid
+join (
+	select sum(b.H) as hits15, b.PLAYERID
+	from bb.batting b
+	where b.yearid=2015
+	group by b.PLAYERID
+	having sum(b.H) > 20 
+	) hitters2015
+	on p.PLAYERID = hitters.playerid
+	order by hits15 asc
+	
+  
