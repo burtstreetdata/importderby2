@@ -1,0 +1,23 @@
+select * from 
+	bb.BATTING b
+	where YEARID  = 2017
+	and not exists (
+		select * 
+		from bb.BATTING subBat
+		where YEARID = 2013
+		and subBat.H > b.H)
+
+
+		create unique index battingPlayeridIX
+		on bb.BATTING
+		(PLAYERID, YEARID, STINT)
+
+		create index battingYearIX
+		on bb.BATTING
+		(YEARID)
+
+		create index  battingHitIX
+		on bb.BATTING
+		(H)
+
+
