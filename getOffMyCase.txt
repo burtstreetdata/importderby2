@@ -1,0 +1,18 @@
+-- searched case vs. simple case
+
+select SUBSTR(name, 2, 5), name, 
+length(name) as lengthOfName,
+case when length(name) < 15 then 'very short'
+when length(name) < 19 then 'regular'
+else 'humungous' end as nameBigness
+from bb.TEAM
+where YEAR_ID = 2017
+
+select SUBSTR(name, 2, 5), name, 
+length(name) as lengthOfName,
+case  length(name) 
+when < 15 then 'very short'
+when  < 19 then 'regular'
+else 'humungous' end as nameBigness
+from bb.TEAM
+where YEAR_ID = 2017
