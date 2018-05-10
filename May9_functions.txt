@@ -1,0 +1,11 @@
+
+select SUBSTR(name, 2, 5), name, 
+length(name) as lengthOfName,
+length(substr(name,2,3)) as lengthOfSubst
+, month(current date) as MonthOfCurday
+, 'UP WITH BASEBALL!' as exclamation
+, 'UP WITH ' || Substr(name, 1, Locate(' ', (name))) as localCheer
+, case when name is null then 'x' else 'notnull' end
+, SUbstr(name, 4, 4) || substr(name, (length(name) - 4), 4)
+from bb.TEAM
+where YEAR_ID = 2017
