@@ -1,0 +1,21 @@
+create table bb.PITCHING (
+playerID varchar (25) not null,
+yearID int not null,
+stint int not null,
+teamID varchar (25) not null,
+lgID varchar (25),
+W int,
+L int,
+G int,
+GS int,
+CG int,
+SHO int,
+SV int,
+IPouts int,
+H int,
+ER int,
+HR int,
+BB int,
+SO int, BAOpp int,ERA decimal  (10,3) ,IBB int,WP int,HBP decimal (10, 3),BK int,BFP int,GF int,R int,SH int,SF int,GIDP int
+)
+
