@@ -1,0 +1,42 @@
+select max (h) as mosthits, teamid
+from bb.batting b
+where b.yearid=2015
+group by teamid
+
+select playerid, h from bb.batting btg
+join (
+select max (h) as mosthits, teamid
+from bb.batting b
+where b.yearid=2015
+group by teamid) bigbats15
+on bigbats15.mosthits< btg.h
+And bigbats15.teamid=btg.teamid
+and btg.yearid=2016
+
+select b.PLAYERID
+from bb.BATTING b
+where yearid=2015
+and not exists (
+select * 
+from bb.batting sub 
+where sub.TEAMID=b.TEAMID
+and sub.yearid=b.yearid
+and sub.h>b.h) 
+
+select * 
+from bb.batting b
+where not exists (
+select * from bb.batting subbat
+where subbat.teamid=b.teamid
+and subbat.yearid=b.yearid
+and subbat.h>b.h
+)
+and b.yearid=2015
+
+
+
+
+
+
+
+
